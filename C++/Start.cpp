@@ -79,7 +79,7 @@ void Start::game(){
 				scanf_s("%d %d", &x, &y);
 
 				//配置可能か判定
-				if (check.position(x, y, turn, board, true)){
+				if (check.position(x, y, turn, board, true) > 0){
 					break;
 				}
 				printf("そこには置けません\n");
