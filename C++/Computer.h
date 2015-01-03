@@ -8,8 +8,8 @@ public:
 
 private:
 
-	//相手に角がとられるかをチェック
-	bool corner(char, char[10][10]);
+	//相手をパスさせることができるか確認
+	bool continuity(int, int, char, char[10][10]);
 
 	//計算用ボード
 	char com_board[10][10];

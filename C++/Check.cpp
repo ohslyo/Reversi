@@ -1,13 +1,13 @@
 #include "Check.h"
 #include "Start.h"
 
-int Check::position(int x, int y, char turn, char board[10][10], bool flag){
-	int get = 0;	//取れる石のカウント用
+bool Check::position(int x, int y, char turn, char board[10][10], bool flag){
+	bool check = 0;
 	int i, j;
 
 	//指定した個所が空白か判定
 	if (board[x][y] != BLANK) {
-		return get;
+		return check;
 	}
 
 	//左上方向に裏返せる石があるか判定
@@ -18,7 +18,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x - i][y - i] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -40,7 +40,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x][y - i] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -62,7 +62,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x + i][y - i] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -84,7 +84,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x + i][y] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -106,7 +106,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x + i][y + i] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -128,7 +128,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x][y + i] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -150,7 +150,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x - i][y + i] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -172,7 +172,7 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 				break;
 			}
 			if (board[x - i][y] == turn){
-				get += i;
+				check = 1;
 				//第4引数がtrueの場合石を配置
 				if (flag){
 					board[x][y] = turn;
@@ -186,14 +186,14 @@ int Check::position(int x, int y, char turn, char board[10][10], bool flag){
 		}
 	}
 
-	return get;
+	return check;
 }
 
 int Check::pass(char turn, char board[10][10]){
 	for (int i = 1; i < 9; i++){
 		for (int j = 1; j < 9; j++){
 			//一マスづつ相手がおけるかを判定
-			if (position(i, j, -turn, board, false) > 0){
+			if (position(i, j, -turn, board, false) == 1){
 				return -1;
 			}
 		}
